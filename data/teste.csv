@@ -1,0 +1,8 @@
+Participant;teste
+Experimenter;
+Date;2023-10-26 16:00:33.958668
+
+Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;Sample_Sound;Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial
+1;treinoAB;1;0;0;sound_image.png;A1s.wav;['B2.png', 'B1.png'];B2.png;10.89;5.28;16.18
+2;treinoAB;2;0;0;sound_image.png;A2s.wav;['B2.png', 'B1.png'];B1.png;0.37;4.9;5.27
+3;treinoAB;3;1;1;sound_image.png;A2s.wav;['B1.png', 'B2.png'];B2.png;0.3;4.72;5.03
