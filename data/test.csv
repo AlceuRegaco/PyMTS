@@ -1,6 +1,0 @@
-Participant;test
-Experimenter;
-Date;2023-10-09 14:09:15.565272
-
-Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;Sample_Sound;Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial
-1;treinoAB;1;0;0;sound_image.png;A2s.wav;['B1.png', 'B2.png'];B1.png;2.58;9.96;12.56
