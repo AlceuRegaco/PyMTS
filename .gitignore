@@ -1,5 +1,9 @@
 # Arquivos extra
 session_settings.json
+data/*
+
+# Exceção à regra da pasta 'data'
+!data/data_example.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -16,7 +16,7 @@ screen = pygame.display.set_mode()
 
 x, y = screen.get_size()
 pygame.display.quit()
-size =  width, height = np.array([(x-300), (y-300)])
+size =  width, height = np.array([(x-100), (y-100)])
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 
 

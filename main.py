@@ -9,17 +9,22 @@ import os, json
 # definir a pasta base do programa
 pastaApp = os.path.dirname(__file__)
 
-def impDados():
+# Função para importar dados
+def impDados(event=None):
+    # Abrir o arquivo JSON em modo de escrita
     with open("session_settings.json", "w", encoding="utf8") as e:
+        # Escrever as informações do participante e do experimentador no arquivo JSON
         json.dump({"Participant": vParticipant.get(),
                    "Experimenter": vExperimenter.get()
                    }, e, ensure_ascii=False)
-        e.close()
+    # Importar o script principal
     import trial_vs9_02
+
+# Criação da interface gráfica usando Tkinter
 app = Tk()
-app.title("Experiment Settings")    # nome da aba
-app.geometry("300x150+750+200")     # tamanho da aba 
-app.configure(background="#dde")    
+app.title("Experiment Settings")    # Título da janela
+app.geometry("300x150+750+200")     # Tamanho e posição da janela
+app.configure(background="#dde")    # Cor de fundo da janela
 
 Label(app, text="Participant: ",background="#dde", foreground="#000", anchor=W)\
 .place(x=10, y=10, width=100, height=20)
@@ -34,5 +39,6 @@ vExperimenter.place(x=10, y=80, width=200, height=20)
 btn = Button(app, text="enviar", command=impDados)
 btn.place(x=10, y=110, width=100, height=20)
 
+app.bind('<Return>', impDados)
 
 app.mainloop()
