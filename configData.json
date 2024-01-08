@@ -12,6 +12,10 @@
     "stimulus_size": [250, 250],
     "consequence_size": [1800,900],
     "instructions_size": [1200, 900],
-    "end_text":"end_text.png"
+    "end_text":"end_text.png",
+
+    "points": 0,
+    "pos_points": [400, 200],
+    "text_size": 30
 }
 
