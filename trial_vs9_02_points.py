@@ -41,6 +41,8 @@ class Trial:
         self.block_parameter = config["start_block"]    # parâmetro do bloco para saber qual arquivo 'csv' buscar para organizar as tentativas
         # configurando variáveis
         self.update_values()        # função para atualizar quais serão os dados utilizados nas tentativas
+        
+        self.point_name = config["points_name"]     #função para pegar o nome dos pontos
         self.points = config["points"]      # função para pegar o número de pontos inicial
         self.pos_points = config["pos_points"]      # função para pegar a posição dos pontos
         self.text_size = config["text_size"]        #função para pegar o tamanho do texto dos pontos
@@ -57,7 +59,7 @@ class Trial:
             file.write(f"Participant;{self.expData['Participant']}\n")
             file.write(f"Experimenter;{self.expData['Experimenter']}\n")
             file.write(f'Date;{datetime.now()}\n\n')
-            file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;Sample_Sound;\
+            file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Points;Sample;Sample_Sound;\
 Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                
     def update_values(self):
@@ -126,6 +128,12 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
 
     def getTime(self, timeI): # função para retornar o tempo desde algum registro (que deverá ser passado ao se chamar a função)
         return time.time() - timeI
+
+    def gui(self):
+        text = Text(screen, 'white', f'{self.confi}', text_size=self.text_size, text_pos=(self.pos_points[0], (self.pos_points[1]+60)))
+        self.text_points = Text(screen, 'white', f'{self.points}', text_size=self.text_size+20, text_pos=(self.pos_points[0], self.pos_points[1]))
+        return text.update(), self.text_points.update()
+
 
     def sample(self):
         self.timeI = time.time()
