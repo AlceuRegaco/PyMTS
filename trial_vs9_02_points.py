@@ -59,8 +59,8 @@ class Trial:
             file.write(f"Participant;{self.expData['Participant']}\n")
             file.write(f"Experimenter;{self.expData['Experimenter']}\n")
             file.write(f'Date;{datetime.now()}\n\n')
-            file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Points;Sample;Sample_Sound;\
-Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
+            file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Points;Contextual_Stimulus;\
+Sample;Sample_Sound;Comps;Selected_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                
     def update_values(self):
         
@@ -75,6 +75,11 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         self.sample_sound = config[0]['sample_sound'].values # lista com os estímulos modelos auditivos (na ordem de apresentação)
         self.comps = [i.split(',') for i in config[0]['comp'].values]  # lista com os estímulos comparação (só a primeira letra e na mesma ordem dos modelos)
         self.correct_comps = [i.split(',') for i in config[0]['correct_comp'].values]
+
+        self.cont_stim = config[0]['cont_stim'].values
+        self.pos_cont_stim = config[1]['pos_stim_cont']
+        self.points_right = config[0]['points_right'].values
+        self.points_wrong = config[0]['points_wrong'].values
 
         self.img_right = config[0]['img_right'].values
         self.img_wrong = config[0]['img_wrong'].values
@@ -130,10 +135,9 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         return time.time() - timeI
 
     def gui(self):
-        text = Text(screen, 'white', f'{self.confi}', text_size=self.text_size, text_pos=(self.pos_points[0], (self.pos_points[1]+60)))
+        text = Text(screen, 'white', f'{self.point_name}', text_size=self.text_size, text_pos=(self.pos_points[0], (self.pos_points[1]+60)))
         self.text_points = Text(screen, 'white', f'{self.points}', text_size=self.text_size+20, text_pos=(self.pos_points[0], self.pos_points[1]))
         return text.update(), self.text_points.update()
-
 
     def sample(self):
         self.timeI = time.time()
@@ -142,12 +146,18 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         timeI = time.time()
         sample = self.samples[self.trialCount]  # estímulo modelo visual
         sample_sound = self.sample_sound[self.trialCount]   # estímulo modelo auditivo
+        cont_stim = self.cont_stim[self.trialCount]         # estímulo contextual
+        self.save_cont_stim = cont_stim
         self.save_sample = sample
         self.save_sample_sound = sample_sound     
         self.sample_stimulus = Image(screen,sample,
                        self.stimulus_size,
                        self.pos_sample
                        )    # definindo o estímulo modelo
+        self.cont_stim_stimulus = Image(screen,cont_stim,
+                       self.stimulus_size,
+                       self.pos_cont_stim
+                       )    # definindo o estímulo contextual
         self.sample_sound_stimulus = Sound(sample_sound)   # definindo o estímulo modelo auditivo
 
         while 1:
@@ -165,8 +175,9 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                         self.sample_sound_stimulus.update(lops=0)   # toca o estímulo modelo auditivo
                         self.comparison()
 
-                    
-            self.sample_stimulus.update()  # apresentando o abstrato
+            self.gui()
+            self.sample_stimulus.update()  # apresentando o modelo
+            self.cont_stim_stimulus.update()    # apresentando o estímulo contextual
             pygame.display.update()
 
     def comparison(self):
@@ -202,6 +213,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                                 self.save_time_comp = self.getTime(timeI)
                                 self.isCorrect = 1
                                 self.accuracy += 1
+                                self.points += self.points_right[self.trialCount]
                                 self.save_select = stimulus.name
                                 self.consequences(self.time_right[self.trialCount],
                                                 self.img_right[self.trialCount],
@@ -209,6 +221,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                             else:
                                 self.save_time_comp = self.getTime(timeI)
                                 self.isCorrect = 0
+                                self.points -= self.points_right[self.trialCount]
                                 self.save_select = stimulus.name
                                 self.consequences(self.time_wrong[self.trialCount],
                                                 self.img_wrong[self.trialCount],
@@ -225,6 +238,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                                     self.save_time_comp = self.getTime(timeI)
                                     self.isCorrect = 1
                                     self.accuracy += 1
+                                    self.points += self.points_right[self.trialCount]
                                     self.save_select = stimulus.name
                                     self.consequences(self.time_right[self.trialCount],
                                                     self.img_right[self.trialCount],
@@ -232,6 +246,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                                 else:
                                     self.save_time_comp = self.getTime(timeI)
                                     self.isCorrect = 0
+                                    self.points -= self.points_right[self.trialCount]
                                     self.save_select = stimulus.name
                                     self.consequences(self.time_wrong[self.trialCount],
                                                     self.img_wrong[self.trialCount],
@@ -247,6 +262,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                     for stimulus in stimuli:
                         stimulus.update()   # apresentando os estímulos
                      
+            self.gui()
             pygame.display.update()
 
     def consequences(self, time_consequence, img_cons, sound_cons):
@@ -278,6 +294,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                 if self.getTime(timeI) >  self.time_ITI + time_consequence:
                     self.ITI()  # inicia o intervalo entre tentativas
 
+            self.gui()
             pygame.display.update()
 
     def ITI(self): # função para verificar como o experimento vai continuar
@@ -332,8 +349,8 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
     def save_data(self): # todas as variáveis globais nomeadas 'save_' servem APENAS para salvar os dados
         """está função salva os dados do experimento: """
         
-        text = f"{self.expTrial};{self.block_name};{self.totalTrials};{self.isCorrect};{self.accuracy};\
-{self.save_sample};{self.save_sample_sound};{self.save_comps};{self.save_select};\
+        text = f"{self.expTrial};{self.block_name};{self.totalTrials};{self.isCorrect};{self.accuracy};{self.points};\
+{self.save_cont_stim};{self.save_sample};{self.save_sample_sound};{self.save_comps};{self.save_select};\
 {round(self.save_time_sample,2)};{round(self.save_time_comp,2)};{round(self.save_trial_time,2)}\n"
         with open(f'data\{self.expData["Participant"]}.csv', "a+") as file:
             file.write(text)

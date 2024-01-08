@@ -18,7 +18,7 @@ def impDados(event=None):
                    "Experimenter": vExperimenter.get()
                    }, e, ensure_ascii=False)
     # Importar o script principal
-    import trial_vs9_02
+    import trial_vs9_02_points
 
 # Criação da interface gráfica usando Tkinter
 app = Tk()

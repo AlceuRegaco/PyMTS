@@ -2,11 +2,12 @@
     "screen_color": [0, 0, 0],
     "ITI": 0,
     "start_block": 0,
-    "blocks": ["treinoAB","treinoAC", "testeEq"],
-    "instructions": ["n","n","inst2.jpg"],
-    "protocol": ["SMTS", "SMTS", "SMTS"],
-    "repetitions": [3, 3, 1],
-    "criteria": [3, 3, 12],
+    "blocks": ["treinoAB"],
+    "instructions": ["n"],
+    "protocol": ["SMTS"],
+    "repetitions": [3],
+    "criteria": [12],
+    "pos_stim_cont": [-400, 200],
     "pos_sample": [0, 200],
     "pos_comps": [[-350, -200],[350, -200]],
     "stimulus_size": [250, 250],
@@ -15,7 +16,7 @@
     "end_text":"end_text.png",
 
     "points_name": "POINTS",
-    "points": 0,
+    "points": 20,
     "pos_points": [400, 200],
     "text_size": 30
 }
