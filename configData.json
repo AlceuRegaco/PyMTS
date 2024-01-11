@@ -15,8 +15,8 @@
     "instructions_size": [1200, 900],
     "end_text":"end_text.png",
 
-    "points_name": "POINTS",
-    "points": 20,
+    "points_name": "Points",
+    "points": 0,
     "pos_points": [400, 200],
     "text_size": 30
 }

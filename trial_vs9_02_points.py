@@ -146,18 +146,12 @@ Sample;Sample_Sound;Comps;Selected_Comp;Time_Click_Sample;Time_Click_Comp;Time_T
         timeI = time.time()
         sample = self.samples[self.trialCount]  # estímulo modelo visual
         sample_sound = self.sample_sound[self.trialCount]   # estímulo modelo auditivo
-        cont_stim = self.cont_stim[self.trialCount]         # estímulo contextual
-        self.save_cont_stim = cont_stim
         self.save_sample = sample
         self.save_sample_sound = sample_sound     
         self.sample_stimulus = Image(screen,sample,
                        self.stimulus_size,
                        self.pos_sample
                        )    # definindo o estímulo modelo
-        self.cont_stim_stimulus = Image(screen,cont_stim,
-                       self.stimulus_size,
-                       self.pos_cont_stim
-                       )    # definindo o estímulo contextual
         self.sample_sound_stimulus = Sound(sample_sound)   # definindo o estímulo modelo auditivo
 
         while 1:
@@ -177,7 +171,6 @@ Sample;Sample_Sound;Comps;Selected_Comp;Time_Click_Sample;Time_Click_Comp;Time_T
 
             self.gui()
             self.sample_stimulus.update()  # apresentando o modelo
-            self.cont_stim_stimulus.update()    # apresentando o estímulo contextual
             pygame.display.update()
 
     def comparison(self):
@@ -187,6 +180,12 @@ Sample;Sample_Sound;Comps;Selected_Comp;Time_Click_Sample;Time_Click_Comp;Time_T
         # definindo os estímulos para serem apresentados
         stimuli = [Image(screen, comps[i], self.stimulus_size, self.pos_comps[i]) for i in range(len(comps))]
         self.save_comps = comps
+        cont_stim = self.cont_stim[self.trialCount]         # estímulo contextual
+        self.save_cont_stim = cont_stim
+        self.cont_stim_stimulus = Image(screen,cont_stim,
+                       self.stimulus_size,
+                       self.pos_cont_stim
+                       )    # definindo o estímulo contextual
         timeI = time.time() #resetando o tempo para apresentação dos estímulos comparação
         
         while 1:
@@ -254,13 +253,15 @@ Sample;Sample_Sound;Comps;Selected_Comp;Time_Click_Sample;Time_Click_Comp;Time_T
 
             if self.protocol[self.block_parameter] == "SMTS":
                 for stimulus in stimuli:
-                    stimulus.update()   # apresentando os estímulos   
+                    stimulus.update()   # apresentando os estímulos  
+                    self.cont_stim_stimulus.update()    # apresentando o estímulo contextual 
             else:
                 if self.getTime(timeI) <= self.protocol[self.block_parameter]:
                     screen.fill(self.screen_color)   # preenchendo a tela                
                 else:
                     for stimulus in stimuli:
                         stimulus.update()   # apresentando os estímulos
+                        self.cont_stim_stimulus.update()    # apresentando o estímulo contextual 
                      
             self.gui()
             pygame.display.update()
