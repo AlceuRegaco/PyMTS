@@ -4,7 +4,7 @@
     "start_block": 0,
     "blocks": ["treinoAB","treinoAC", "testeEq"],
     "instructions": ["n","n","inst2.jpg"],
-    "protocol": ["SMTS", "SMTS", "SMTS"],
+    "comp display": ["SMTS", "SMTS", "SMTS"],
     "repetitions": [3, 3, 1],
     "criteria": [3, 3, 12],
     "pos_sample": [0, 200],

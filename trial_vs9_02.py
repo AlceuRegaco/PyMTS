@@ -84,7 +84,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         self.instruction_size = config[1]['instructions_size']
         self.consequence_size = config[1]["consequence_size"]
         self.instructions = config[1]['instructions']           # lista com as instruções do experimento
-        self.protocol = config[1]['protocol']                   # lista definido se é SMTS ou DMTS
+        self.protocol = config[1]['comp display']                   # lista definido se é SMTS ou DMTS
         self.end_text = config[1]['end_text']
 
     def config_experiment(self):    # função para abrir as confiugurações opcionais do experimento (no arquivo 'myConfig.json')
