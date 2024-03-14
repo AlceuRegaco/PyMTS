@@ -54,7 +54,7 @@ class Trial:
             file.write(f"Participant;{self.expData['Participant']}\n")
             file.write(f"Experimenter;{self.expData['Experimenter']}\n")
             file.write(f'Date;{datetime.now()}\n\n')
-            file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;Sample_Sound;\
+            file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;\
 Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                
     def update_values(self):
@@ -66,7 +66,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         self.screen_color = config[1]['screen_color'] # cor da tela 
         self.time_ITI = config[1]['ITI']  # intervalo entre tentativas   
         self.blocks_number = len(config[1]['blocks']) # quantidade de blocos
-        self.samples = config[0]['sample'].values # lista com os estímulos modelos (na ordem de apresentação)
+        self.samples = [i.split(',') for i in config[0]['sample'].values] # lista com os estímulos modelos (na ordem de apresentação)
         self.sample_sound = config[0]['sample_sound'].values # lista com os estímulos modelos auditivos (na ordem de apresentação)
         self.comps = [i.split(',') for i in config[0]['comp'].values]  # lista com os estímulos comparação (só a primeira letra e na mesma ordem dos modelos)
         self.correct_comps = [i.split(',') for i in config[0]['correct_comp'].values]
@@ -125,19 +125,14 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         return time.time() - timeI
 
     def sample(self):
-        self.timeI = time.time()
         screen.fill(self.screen_color)
-        # define o tempo inical da apresentação do modelo
-        timeI = time.time()
         sample = self.samples[self.trialCount]  # estímulo modelo visual
-        sample_sound = self.sample_sound[self.trialCount]   # estímulo modelo auditivo
         self.save_sample = sample
-        self.save_sample_sound = sample_sound     
-        self.sample_stimulus = Image(screen,sample,
-                       self.stimulus_size,
-                       self.pos_sample
-                       )    # definindo o estímulo modelo
-        self.sample_sound_stimulus = Sound(sample_sound)   # definindo o estímulo modelo auditivo
+        print(sample)
+
+        self.sample_stimulus = [Image(screen,s,self.stimulus_size,self.pos_sample) for s in sample]
+        self.timeI = time.time()
+        timeI = time.time()
 
         while 1:
             for event in pygame.event.get():
@@ -145,19 +140,22 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                     pygame.quit()
                     sys.exit()
 
-                if self.sample_stimulus.mouse_click(event) and self.sample_stimulus.mouse_hover():
-                    if sample_sound == 'n':                        
-                        self.save_time_sample = self.getTime(timeI)
-                        self.comparison()
-                    else:
-                        self.save_time_sample = self.getTime(timeI)
-                        self.sample_sound_stimulus.update(lops=0)   # toca o estímulo modelo auditivo
-                        self.comparison()
+            if self.getTime(timeI) > 4.5:
+                self.sample_stimulus[-1].update()
+                self.save_time_sample = self.getTime(timeI)
+                self.comparison() 
 
-                    
-            self.sample_stimulus.update()  # apresentando o abstrato
+            elif self.getTime(timeI) > 2.5:
+                self.sample_stimulus[-2].update()
+
+            elif self.getTime(timeI) > 2:
+                self.sample_stimulus[-3].update()
+            
+            else:
+                self.sample_stimulus[-4].update()
+            
             pygame.display.update()
-
+                
     def comparison(self):
         sample_sound = self.sample_sound[self.trialCount]   # estímulo modelo auditivo
         comps = self.comps[self.trialCount]  # definindo a lista dos estímulos comparação
@@ -322,7 +320,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         """está função salva os dados do experimento: """
         
         text = f"{self.expTrial};{self.block_name};{self.totalTrials};{self.isCorrect};{self.accuracy};\
-{self.save_sample};{self.save_sample_sound};{self.save_comps};{self.save_select};\
+{self.save_sample};{self.save_comps};{self.save_select};\
 {round(self.save_time_sample,2)};{round(self.save_time_comp,2)};{round(self.save_trial_time,2)}\n"
         with open(f'data\{self.expData["Participant"]}.csv', "a+") as file:
             file.write(text)

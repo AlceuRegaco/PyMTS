@@ -1,0 +1,13 @@
+﻿sample;sample_sound;comp;correct_comp;img_right;img_wrong;sound_right;sound_wrong;time_right;time_wrong
+A1_X1.png,A1b.png,A1_Z1.png,A1.png;n;true.png,false.png;true.png;n;n;n;n;1;1
+A1_Z1.png,A1b.png,A1_X1.png,A1.png;n;true.png,false.png;true.png;n;n;n;n;1;1
+A1_X2.png,A1b.png,A1_Z2.png,A1.png;n;true.png,false.png;true.png;n;n;n;n;1;1
+A1_Z2.png,A1b.png,A1_X2.png,A1.png;n;true.png,false.png;true.png;n;n;n;n;1;1
+A1_X3.png,A1b.png,A1_Z3.png,A1.png;n;true.png,false.png;true.png;n;n;n;n;1;1
+A1_Z3.png,A1b.png,A1_X3.png,A1.png;n;true.png,false.png;true.png;n;n;n;n;1;1
+A2_X1.png,A2b.png,A2_Z2.png,A2.png;n;true.png,false.png;false.png;n;n;n;n;1;1
+A2_Z2.png,A2b.png,A2_X1.png,A2.png;n;true.png,false.png;false.png;n;n;n;n;1;1
+A2_X2.png,A2b.png,A2_Z3.png,A2.png;n;true.png,false.png;false.png;n;n;n;n;1;1
+A2_Z3.png,A2b.png,A2_X2.png,A2.png;n;true.png,false.png;false.png;n;n;n;n;1;1
+A2_X3.png,A2b.png,A2_Z1.png,A2.png;n;true.png,false.png;false.png;n;n;n;n;1;1
+A2_Z1.png,A2b.png,A2_X3.png,A2.png;n;true.png,false.png;false.png;n;n;n;n;1;1
