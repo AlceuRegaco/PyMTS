@@ -9,3 +9,6 @@ In the 'output' folder is the executable file and the instructions. Please read 
 
 # Reference (APA style)
 Carvalho, F. C., Regaço, A., & de Rose, J. C. (2023). PyMTS (Version #"add the version number here") [Computer Software]. Universidade Federal de São Carlos.
+
+# Version 2.06
+In this version we added the possibility of saving the CSV file with comma or semicolon. We also changed how to separate de comparison stimuli in the CSV block files (now its using a colon ":"). 
