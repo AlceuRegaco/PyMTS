@@ -51,9 +51,10 @@ class Trial:
             self.expData = json.load(e)
             e.close()
         with open(f'data\{self.expData["Participant"]}.csv', "w+") as file:
+            file.write(f"sep=;\n")
             file.write(f"Participant;{self.expData['Participant']}\n")
             file.write(f"Experimenter;{self.expData['Experimenter']}\n")
-            file.write(f'Date;{datetime.now()}\n\n')
+            file.write(f"Date;{datetime.now()}\n\n")
             file.write(f"Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;Sample_Sound;\
 Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
                
@@ -68,8 +69,8 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         self.blocks_number = len(config[1]['blocks']) # quantidade de blocos
         self.samples = config[0]['sample'].values # lista com os estímulos modelos (na ordem de apresentação)
         self.sample_sound = config[0]['sample_sound'].values # lista com os estímulos modelos auditivos (na ordem de apresentação)
-        self.comps = [i.split(',') for i in config[0]['comp'].values]  # lista com os estímulos comparação (só a primeira letra e na mesma ordem dos modelos)
-        self.correct_comps = [i.split(',') for i in config[0]['correct_comp'].values]
+        self.comps = [i.split(':') for i in config[0]['comp'].values]  # lista com os estímulos comparação (só a primeira letra e na mesma ordem dos modelos)
+        self.correct_comps = [i.split(':') for i in config[0]['correct_comp'].values]
 
         self.img_right = config[0]['img_right'].values
         self.img_wrong = config[0]['img_wrong'].values
@@ -95,7 +96,7 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         self.blocks = config["blocks"]           
         self.block_name = self.blocks[self.block_parameter] # pega o nome do bloco para usar durante o procedimento (caso precise)
 
-        current_block = pd.read_csv(f"config/{self.block_name}.csv", sep=';')   # pega o bloco atual
+        current_block = pd.read_csv(f"config/{self.block_name}.csv", sep=r'[;,]+')   # pega o bloco atual
         current_block = current_block.sample(current_block.shape[0])            # randomiza as tentativas dentro do próprio bloco
         
         return [current_block, config]      # ver informações do 'config' no arquivo 'config.json'
