@@ -18,7 +18,8 @@ def impDados(event=None):
                    "Experimenter": vExperimenter.get()
                    }, e, ensure_ascii=False)
     # Importar o script principal
-    import trial_vs9_02
+    app.destroy()
+    import trial_vs9_02    
 
 def getDataSession():
     with open("configData.json", "r") as setting:
