@@ -1,33 +1,33 @@
 """
-Este arquivo serve para abrir a tela de introdução do nome da pessoa que irá participar da pesquisa e da pessoa que está coordenando 
+This file is used to open the introduction screen for the name of the person who will participate in the research and the person who is coordinating it.
 """
+
 from encodings.utf_8 import encode
 from tkinter import *
 import os, json
 
 
-# definir a pasta base do programa
+# defining the path of the script
 pastaApp = os.path.dirname(__file__)
 
-# Função para importar dados
-def impDados(event=None):
-    # Abrir o arquivo JSON em modo de escrita
-    with open("session_settings.json", "w", encoding="utf8") as e:
-        # Escrever as informações do participante e do experimentador no arquivo JSON
+
+def impDados(event=None):   # function to import data
+
+    with open("session_settings.json", "w", encoding="utf8") as e:  # open the JSON file in write mode
+        # writting the data to the JSON file
         json.dump({"Participant": vParticipant.get(),
                    "Experimenter": vExperimenter.get()
                    }, e, ensure_ascii=False)
-    # Importar o script principal
     app.destroy()
-    import trial_vs9_02    
+    import trial_vs9_04     # import the trial file to start the experiment
 
-def getDataSession():
+def getDataSession():   # function to get the names of the blocks
     with open("configData.json", "r") as setting:
         blocks = json.load(setting)
     for item in blocks["blocks"]:
         listbox.insert(END, item)
     
-def selectingBlock(event=None):
+def selectingBlock(event=None): # function to select the block
     selected_block = listbox.curselection()
     if selected_block:
         first_block = listbox.get(selected_block) 
@@ -36,7 +36,7 @@ def selectingBlock(event=None):
     else:
         print("No first block selected")
 
-def changingConfigData(n):
+def changingConfigData(n):  # function to change the block in the configData.json file
     with open("configData.json", 'r', encoding='utf8') as file:
         data = json.load(file)
     data["start_block"] = n
@@ -44,11 +44,11 @@ def changingConfigData(n):
         json.dump(data, e, ensure_ascii=False, indent=4, separators=(',', ': '))
     impDados()
     
-# Criação da interface gráfica usando Tkinter
+# creating the window using tkinter
 app = Tk()
-app.title("Experiment Settings")    # Título da janela
-app.geometry("250x250+750+200")     # Tamanho e posição da janela
-app.configure(background="#dde")    # Cor de fundo da janela
+app.title("Experiment Settings")    # title of the window
+app.geometry("250x250+750+200")     # size and position of the window
+app.configure(background="#dde")    # setting the background color of the window
 
 Label(app, text="Participant: ",background="#dde", foreground="#000", anchor=W)\
 .place(x=10, y=10, width=100, height=20)

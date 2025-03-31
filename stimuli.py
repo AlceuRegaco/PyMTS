@@ -2,7 +2,7 @@ import pygame, time
 import numpy as np
 
 """
-este arquivo contém as classes para adicionar estímulos no experimento de acordo com o tipo de estímulo (criar novas classes para cada tipo de estímulo novo)
+This file contains the classes to add stimuli in the experiment according to the type of stimulus (create new classes for each new type of stimulus)
 """
 
 pygame.init()
@@ -50,12 +50,12 @@ class Image:
         return e.type == pygame.MOUSEBUTTONDOWN
 
 class Sound:
-    def __init__(self, stimulus_path:str,):
+    def __init__(self, stimulus_path:str, volume=0.5):
         self.stimulus_path = f'stimuli/{stimulus_path}'
         if stimulus_path == 'n':
             return None
         self.sound = pygame.mixer.Sound(self.stimulus_path)
-        self.sound.set_volume(0.1)
+        self.sound.set_volume(volume)
         #print(f'duração som:{self.sound.get_length()}')
         
     def stop(self):
