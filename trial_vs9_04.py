@@ -9,6 +9,7 @@ import json
 import pandas as pd
 from datetime import datetime
 import numpy as np
+import traceback
 
 pygame.init()
 
@@ -19,11 +20,25 @@ pygame.display.quit()
 size =  width, height = np.array([(x-100), (y-100)])
 screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 
-
 pygame.display.set_caption("PyMTS")
 
+def main(): # main function to start the experiment
+    try:
+        trial = Trial()  # Instantiating the class
+        trial.__init__()  # Calling the initialization of the class
+        
+    except Exception as e:  # Catching any exception that occurs in the code
+        error_message = traceback.format_exc()  # Getting the error message
+        with open("error_log.txt", "w") as file:
+            file.write(error_message)   # Writing the error message to a file
+        print("An error occurred. Check 'error_log.txt' for details.")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
+
 class Trial:
-    
+
     def __init__(self):
         self.clock = pygame.time.Clock()
 
@@ -321,4 +336,4 @@ Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial\n")
         with open(f'data\{self.expData["Participant"]}.csv', "a+") as file:
             file.write(text)
         
-Trial()
+main()

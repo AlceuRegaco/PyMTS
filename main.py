@@ -65,7 +65,7 @@ listbox.place(x=10, y=110, width=200, height=80)
 
 getDataSession()
 
-btn = Button(app, text="enviar", command=selectingBlock)
+btn = Button(app, text="start", command=selectingBlock)
 btn.place(x=10, y=200, width=100, height=20)
 
 app.bind('<Return>', impDados)
