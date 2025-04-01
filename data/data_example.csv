@@ -1,0 +1,17 @@
+Participant;example;;;;;;;;;;
+Experimenter;;;;;;;;;;;
+Date;2025-04-01 13:44:47.266556;;;;;;;;;;
+;;;;;;;;;;;
+Total_Trial;Block;Block_Trial;Accuracy;Total_Correct;Sample;Sample_Sound;Comps;Selcted_Comp;Time_Click_Sample;Time_Click_Comp;Time_Trial
+1;ACtraining;1;0;0;['A2.png', 'sound_image.png'];n;['C2.png', 'C1.png'];C1.png;1.16;0.92;2.08
+2;ACtraining;2;1;1;['A2.png', 'sound_image.png'];n;['C2.png', 'C1.png'];C2.png;1.12;0.67;1.8
+3;ACtraining;3;1;2;['A2.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C2.png;6.91;1.02;7.93
+4;ACtraining;4;1;3;['A2.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C2.png;1.08;0.52;1.61
+5;ACtraining;5;0;3;['A1.png', 'sound_image.png'];n;['C2.png', 'C1.png'];C2.png;12.31;0.52;12.84
+6;ACtraining;6;0;3;['A1.png', 'sound_image.png'];n;['C2.png', 'C1.png'];C2.png;0.23;0.89;1.13
+7;ACtraining;7;1;4;['A1.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C1.png;0.21;0.96;1.17
+8;ACtraining;8;1;5;['A1.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C1.png;0.23;1.14;1.38
+9;ACtraining;9;1;6;['A1.png', 'sound_image.png'];n;['C2.png', 'C1.png'];C1.png;3.65;0.72;4.38
+10;ACtraining;10;1;7;['A1.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C1.png;0.42;0.66;1.09
+11;ACtraining;11;1;8;['A2.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C2.png;0.21;1.1;1.31
+12;ACtraining;12;1;9;['A2.png', 'sound_image.png'];n;['C1.png', 'C2.png'];C2.png;0.32;0.68;1.01
